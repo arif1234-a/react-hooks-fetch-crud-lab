@@ -8,17 +8,25 @@ function QuestionList() {
     fetch("http://localhost:4000/questions")
       .then((res) => res.json())
       .then((data) => setQuestions(data))
-      .catch((error) => console.error("Error fetching questions:", error));
   }, []);
 
   function handleUpdateQuestion(updatedQuestion) {
     setQuestions(
       questions.map((q) => (q.id === updatedQuestion.id ? updatedQuestion : q))
-    ); // Update state
+    );
   }
 
   function handleDeleteQuestion(deletedId) {
-    setQuestions(questions.filter((q) => q.id !== deletedId)); // Remove from state
+    fetch(`http://localhost:4000/questions/${deletedId}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          setQuestions((prevQuestions) =>
+            prevQuestions.filter((q) => q.id !== deletedId)
+          ); 
+        } 
+      })
   }
 
   return (

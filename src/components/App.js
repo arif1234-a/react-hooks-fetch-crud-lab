@@ -15,7 +15,7 @@ function App() {
   }, []);
 
   function handleAddQuestion(newQuestion) {
-    setQuestions([...questions, newQuestion]); // Updates QuestionList when new question is added
+    setQuestions([...questions, newQuestion]);
   }
 
   return (
